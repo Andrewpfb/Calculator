@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
     double operand1,operand2;
     int flagAction;
     double result;
-    Object[] args;
+    Object[] binaryArgs;
+    Object[] unaryArgs;
 
     Calculation obj = new Calculation();
 
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         //TODO: Подумать как убрать кучу свичей
         //TODO: потому что выглядит жутко и все остальное выглядит
         //TODO: В общем унифицировать вызов как-то.
+        //походу никак. один черт выхватывать отдельные нажатия надо. смысл несколько теряется, оверхэд в общем
         switch (v.getId())
         {
             case R.id.btnOne:
@@ -138,9 +140,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             case R.id.btnMinus:
                 if(flagAction==0)
                    // flagAction=2; Тестовая штука. по нажатию на минус считает корень
-                    args=new Object[]{new Double(operand1)};
+                    unaryArgs=new Object[]{new Double(operand1)};
                 try{
-                    result=obj.WorkWithOperations(OperationsType.unary,R.id.btnSquareRoot,args);
+                    result=obj.WorkWithOperations(OperationsType.unary,R.id.btnSquareRoot,unaryArgs);
                 }
                 catch (InvocationTargetException e) {}
                 catch (IllegalAccessException e) {}
@@ -159,10 +161,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
                 {
                     case 1:
                         //result=operand1+operand2;
-                       args=new Object[]{new Double(operand1),new Double(operand2)};
+                       binaryArgs=new Object[]{new Double(operand1),new Double(operand2)};
                         try
                         {
-                            result=obj.WorkWithOperations(OperationsType.binary,R.id.btnPlus,args);
+                            result=obj.WorkWithOperations(OperationsType.binary,R.id.btnPlus,binaryArgs);
                         }
                         catch (InvocationTargetException e) {}
                         catch (IllegalAccessException e) {}
@@ -170,9 +172,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
                         break;
                     case 2:
                         //result=operand1-operand2;
-                        args=new Object[]{new Double(operand1)};
+                        unaryArgs=new Object[]{new Double(operand1)};
                         try{
-                            result=obj.WorkWithOperations(OperationsType.unary,R.id.btnSquareRoot,args);
+                            result=obj.WorkWithOperations(OperationsType.unary,R.id.btnSquareRoot,unaryArgs);
                         }
                         catch (InvocationTargetException e) {}
                         catch (IllegalAccessException e) {}
