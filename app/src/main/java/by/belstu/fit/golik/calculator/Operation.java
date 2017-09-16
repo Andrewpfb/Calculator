@@ -21,20 +21,24 @@ public class Operation
     }
 
     //Unary
-    static public double Sin(double operand1) {
-        return Math.sin(operand1);
+    static public double Sin(double operand) {
+        return Math.sin(operand);
     }
-    static public double Cos(double operand1) {
-        return Math.cos(operand1);
+
+    static public double Cos(double operand) {
+        return Math.cos(operand);
     }
-    static public double Tan(double operand1) {
-        return Math.tan(operand1);
+
+    static public double Tan(double operand) {
+        return Math.tan(operand);
     }
-    static public double Square(double operand1) {
-        return Math.sqrt(operand1);
+
+    static public double Square(double operand) {
+        return Math.sqrt(operand);
     }
-    static public double ReverseSign(double operand1) {
-        return -operand1;
+
+    static public double ReverseSign(double operand) {
+        return -operand;
     }
 
     //Constant
@@ -86,5 +90,5 @@ public class Operation
         return Math.E;
     }
 
-    // Make dot. Convert int to double
+    // Make dot.
 }
