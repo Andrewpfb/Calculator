@@ -21,7 +21,7 @@ enum OperationsType
 public class MainActivity extends AppCompatActivity implements OnClickListener
 {
     Button btnClear;
-    Button btnTmp;
+    Button btnDot;
     public static TextView tvLCD;
 
     public static double operand1, operand2;
@@ -41,9 +41,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         setContentView(R.layout.activity_main);
 
         btnClear=(Button) findViewById(R.id.btnClear);
+        btnDot = (Button) findViewById(R.id.btnDot);
         tvLCD=(TextView) findViewById(R.id.tvLCD);
 
         btnClear.setOnClickListener(this);
+        btnDot.setOnClickListener(this);
 
         operand1 = 0;
         operand2 = 0;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             if (_checkPoint) {
                 _degree++;
                 operand1 = operand1 + num / Math.pow(10, _degree);
+                tvLCD.setText(Double.toString(operand1));
             } else {
                 operand1 = operand1 * 10 + num;
                 tvLCD.setText(Double.toString(operand1));
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             if (_checkPoint) {
                 _degree++;
                 operand2 = operand2 + num / Math.pow(10, _degree);
+                tvLCD.setText(Double.toString(operand2));
             } else {
                 operand2 = operand2 * 10 + num;
                 tvLCD.setText(Double.toString(operand2));
@@ -82,8 +86,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 
     public void ConstantOperationOnClick(View v) throws InvocationTargetException, IllegalAccessException {
         obj.WorkWithOperations(OperationsType.constant, v.getId(), null);
-        _degree = 0;
-        _checkPoint = false;
     }
 
     public void UnaryOperationOnClick(View v) throws InvocationTargetException, IllegalAccessException {
@@ -118,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             case R.id.btnClear:
                 operand1 = 0;
                 operand2 = 0;
+                _degree = 0;
+                _checkPoint = false;
                 tvLCD.setText("0.0");
                 break;
             case R.id.btnDot:
