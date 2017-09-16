@@ -38,34 +38,43 @@ public class Operation
     }
 
     //Constant
-    static public int One() {
+    static public double One() {
         return 1;
     }
-    static public int Two() {
+
+    static public double Two() {
         return 2;
     }
-    static public int Three() {
+
+    static public double Three() {
         return 3;
     }
-    static public int Four() {
+
+    static public double Four() {
         return 4;
     }
-    static public int Five() {
+
+    static public double Five() {
         return 5;
     }
-    static public int Six() {
+
+    static public double Six() {
         return 6;
     }
-    static public int Seven() {
+
+    static public double Seven() {
         return 7;
     }
-    static public int Eight() {
+
+    static public double Eight() {
         return 8;
     }
-    static public int Nine() {
+
+    static public double Nine() {
         return 9;
     }
-    static public int Zero() {
+
+    static public double Zero() {
         return 0;
     }
     static public double Pi() {

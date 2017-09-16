@@ -27,9 +27,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
     public static double operand1, operand2;
     static int flagAction;
     private static int _operationId;
+    private static boolean _checkPoint = false;
+    private static int _degree = 0;
     Object[] binaryArgs;
     Object[] unaryArgs;
-    Object[] constantArgs;
 
     Calculation obj = new Calculation();
 
@@ -57,32 +58,46 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
     {
         if(flagAction==0)
         {
-            operand1=operand1*10+num;
-            tvLCD.setText(Double.toString(operand1));
+            if (_checkPoint) {
+                _degree++;
+                operand1 = operand1 + num / Math.pow(10, _degree);
+            } else {
+                operand1 = operand1 * 10 + num;
+                tvLCD.setText(Double.toString(operand1));
+            }
         }
         else
         {
-            operand2=operand2*10+num;
-            tvLCD.setText(Double.toString(operand2));
+            if (_checkPoint) {
+                _degree++;
+                operand2 = operand2 + num / Math.pow(10, _degree);
+            } else {
+                operand2 = operand2 * 10 + num;
+                tvLCD.setText(Double.toString(operand2));
+            }
         }
     }
 
     //For each type of operation its own handler.
 
     public void ConstantOperationOnClick(View v) throws InvocationTargetException, IllegalAccessException {
-/*        btnTmp = (Button) findViewById(v.getId());
-        constantArgs = new Object[]{new String((String) btnTmp.getText())};*/
         obj.WorkWithOperations(OperationsType.constant, v.getId(), null);
+        _degree = 0;
+        _checkPoint = false;
     }
 
     public void UnaryOperationOnClick(View v) throws InvocationTargetException, IllegalAccessException {
         unaryArgs = new Object[]{new Double(operand1)};
         obj.WorkWithOperations(OperationsType.unary, v.getId(), unaryArgs);
+        _degree = 0;
+        _checkPoint = false;
     }
 
     public void BinaryOperationOnClick(View v) {
         flagAction = 1;
         _operationId = v.getId();
+        _degree = 0;
+        _checkPoint = false;
     }
 
     public void EqualOperationOnClick(View v) throws InvocationTargetException, IllegalAccessException {
@@ -92,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             obj.WorkWithOperations(OperationsType.equal, null, null);
         }
         flagAction = 0;
+        _degree = 0;
+        _checkPoint = false;
     }
 
     @Override
@@ -102,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
                 operand1 = 0;
                 operand2 = 0;
                 tvLCD.setText("0.0");
+                break;
+            case R.id.btnDot:
+                _checkPoint = true;
                 break;
         }
     }
