@@ -161,6 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="EqualOperationOnClick"
                 android:text="=" />
 
             <Button
@@ -186,12 +187,12 @@
                 android:text="√" />
 
             <Button
-                android:id="@+id/btnPi"
+                android:id="@+id/btnDot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="ConstantOperationOnClick"
-                android:text="Pi" />
+                android:onClick="OnClick"
+                android:text="," />
 
             <Button
                 android:id="@+id/btnSin"
@@ -216,12 +217,20 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnDot"
+                android:id="@+id/btnPi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="," />
+                android:onClick="ConstantOperationOnClick"
+                android:text="Pi" />
+
+            <Button
+                android:id="@+id/btnE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="ConstantOperationOnClick"
+                android:text="E" />
 
             <Button
                 android:id="@+id/btnReverseSign"

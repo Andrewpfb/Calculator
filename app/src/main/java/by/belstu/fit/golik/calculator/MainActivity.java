@@ -20,7 +20,7 @@ enum OperationsType
 
 public class MainActivity extends AppCompatActivity implements OnClickListener
 {
-    Button btnEqual, btnClear;
+    Button btnClear;
     Button btnTmp;
     public static TextView tvLCD;
 
@@ -40,11 +40,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         setContentView(R.layout.activity_main);
 
         btnClear=(Button) findViewById(R.id.btnClear);
-        btnEqual=(Button) findViewById(R.id.btnEqual);
         tvLCD=(TextView) findViewById(R.id.tvLCD);
 
         btnClear.setOnClickListener(this);
-        btnEqual.setOnClickListener(this);
 
         operand1 = 0;
         operand2 = 0;
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         obj.InitOperation();
     }
 
-    public static void ClickNumber(int num)
+    public static void ClickNumber(double num)
     {
         if(flagAction==0)
         {
@@ -72,9 +70,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
     //For each type of operation its own handler.
 
     public void ConstantOperationOnClick(View v) throws InvocationTargetException, IllegalAccessException {
-        btnTmp = (Button) findViewById(v.getId());
-        constantArgs = new Object[]{new String((String) btnTmp.getText())};
-        obj.WorkWithOperations(OperationsType.constant, v.getId(), constantArgs);
+/*        btnTmp = (Button) findViewById(v.getId());
+        constantArgs = new Object[]{new String((String) btnTmp.getText())};*/
+        obj.WorkWithOperations(OperationsType.constant, v.getId(), null);
     }
 
     public void UnaryOperationOnClick(View v) throws InvocationTargetException, IllegalAccessException {
@@ -87,6 +85,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         _operationId = v.getId();
     }
 
+    public void EqualOperationOnClick(View v) throws InvocationTargetException, IllegalAccessException {
+        if (flagAction == 1) {
+            binaryArgs = new Object[]{new Double(operand1), new Double(operand2)};
+            obj.WorkWithOperations(OperationsType.binary, _operationId, binaryArgs);
+            obj.WorkWithOperations(OperationsType.equal, null, null);
+        }
+        flagAction = 0;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId())
@@ -94,21 +101,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             case R.id.btnClear:
                 operand1 = 0;
                 operand2 = 0;
-                tvLCD.setText("");
-                break;
-            case R.id.btnEqual:
-                if (flagAction == 1) {
-                    binaryArgs = new Object[]{new Double(operand1), new Double(operand2)};
-                    try {
-                        obj.WorkWithOperations(OperationsType.binary, _operationId, binaryArgs);
-                        obj.WorkWithOperations(OperationsType.equal, null, null);
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                    flagAction=0;
-                }
+                tvLCD.setText("0.0");
                 break;
         }
     }

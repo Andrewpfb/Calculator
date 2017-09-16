@@ -29,8 +29,21 @@ public class Calculation
         _operationHashMap.put(R.id.btnCos, "Cos");
         _operationHashMap.put(R.id.btnSin, "Sin");
         _operationHashMap.put(R.id.btnTan, "Tan");
-        _operationHashMap.put(R.id.btnPi, "Pi");
         _operationHashMap.put(R.id.btnReverseSign, "ReverseSign");
+
+        //Constant operation.
+        _operationHashMap.put(R.id.btnOne, "One");
+        _operationHashMap.put(R.id.btnTwo, "Two");
+        _operationHashMap.put(R.id.btnThree, "Three");
+        _operationHashMap.put(R.id.btnFour, "Four");
+        _operationHashMap.put(R.id.btnFive, "Five");
+        _operationHashMap.put(R.id.btnSix, "Six");
+        _operationHashMap.put(R.id.btnSeven, "Seven");
+        _operationHashMap.put(R.id.btnEight, "Eight");
+        _operationHashMap.put(R.id.btnNine, "Nine");
+        _operationHashMap.put(R.id.btnZero, "Zero");
+        _operationHashMap.put(R.id.btnPi, "Pi");
+        _operationHashMap.put(R.id.btnE, "E");
     }
 
     public void WorkWithOperations(OperationsType opType, Integer operationsId, Object[] args) throws InvocationTargetException, IllegalAccessException {
@@ -67,7 +80,11 @@ public class Calculation
                 break;
             case constant:
                 //For enter number.
-                MainActivity.ClickNumber(Integer.parseInt((String) args[0]));
+                try {
+                    _method = _clazz.getMethod(_operationName, null); //Get operation by name.
+                } catch (NoSuchMethodException e) {
+                }
+                MainActivity.ClickNumber((double) _method.invoke(null, args));
                 break;
         }
     }
