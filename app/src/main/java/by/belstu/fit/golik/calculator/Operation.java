@@ -24,19 +24,15 @@ public class Operation
     static public double Sin(double operand) {
         return Math.sin(operand);
     }
-
     static public double Cos(double operand) {
         return Math.cos(operand);
     }
-
     static public double Tan(double operand) {
         return Math.tan(operand);
     }
-
     static public double Square(double operand) {
         return Math.sqrt(operand);
     }
-
     static public double ReverseSign(double operand) {
         return -operand;
     }
