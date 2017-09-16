@@ -1,9 +1,8 @@
 package by.belstu.fit.golik.calculator;
 
-import java.util.Arrays;
+
 import java.util.HashMap;
 import java.lang.reflect.*;
-import java.util.Objects;
 
 /**
  * Created by frost on 11.09.2017.
@@ -11,37 +10,65 @@ import java.util.Objects;
 
 public class Calculation
 {
-    private HashMap<Integer,String> _operationHashMap=new HashMap<>(); //Operation dictionary, [ID] [Operation Name]
+    private HashMap<Integer, String> _operationHashMap = new HashMap<>(); //Operation dictionary, [ID] [Operation Name].
     private String _operationName=null;
     private Method _method=null;
-    private Class _clazz = Operation.class;  //Get class for reflection
+    private Class _clazz = Operation.class;  //Get class for reflection.
+    private static double _result;
 
-    public void InitOperation() //Filling in the dictionary
+    public void InitOperation() //Filling in the dictionary.
     {
+        //Binary operation.
         _operationHashMap.put(R.id.btnPlus,"Plus");
+        _operationHashMap.put(R.id.btnMinus, "Minus");
+        _operationHashMap.put(R.id.btnDiv, "Div");
+        _operationHashMap.put(R.id.btnMulti, "Multi");
+
+        //Unary operation.
         _operationHashMap.put(R.id.btnSquareRoot,"Square");
+        _operationHashMap.put(R.id.btnCos, "Cos");
+        _operationHashMap.put(R.id.btnSin, "Sin");
+        _operationHashMap.put(R.id.btnTan, "Tan");
+        _operationHashMap.put(R.id.btnPi, "Pi");
+        _operationHashMap.put(R.id.btnReverseSign, "ReverseSign");
     }
 
-    public double WorkWithOperations(OperationsType opType, Integer operationsId, Object[]args) throws InvocationTargetException, IllegalAccessException {
-        _operationName = _operationHashMap.get(operationsId);  //Get the operation name from the dictionary by id
+    public void WorkWithOperations(OperationsType opType, Integer operationsId, Object[] args) throws InvocationTargetException, IllegalAccessException {
+        _operationName = _operationHashMap.get(operationsId);  //Get the operation name from the dictionary by id.
         switch (opType) {
             case binary:
                 try {
-                    _method = _clazz.getMethod(_operationName,new Class[]{double.class,double.class}); //get operation by name
+                    _method = _clazz.getMethod(_operationName, new Class[]{double.class, double.class}); //Get operation by name.
                 }
                 catch (NoSuchMethodException e) {}
-                return (double) _method.invoke(null,args);
+                _result = (double) _method.invoke(null, args);
+                break;
             case unary:
                try{
                    _method=_clazz.getMethod(_operationName,new Class[]{double.class});
                }
                catch (NoSuchMethodException e){}
-                return (double) _method.invoke(null,args);
+                _result = (double) _method.invoke(null, args);
+                MainActivity.tvLCD.setText(Double.toString(_result)); //For beauty. Unary operations
+                // are considered immediately.
+                MainActivity.operand1 = 0;
+                MainActivity.operand2 = 0;
+                MainActivity.operand1 = _result;                        //For the possibility of continuing calculations.
+                MainActivity.flagAction = 1;
+                _result = 0;
+                break;
             case equal:
-                return 0;
+                MainActivity.tvLCD.setText(Double.toString(_result));
+                MainActivity.operand1 = 0;
+                MainActivity.operand2 = 0;
+                MainActivity.operand1 = _result;                       ////For the possibility of continuing calculations.
+                MainActivity.flagAction = 1;
+                _result = 0;
+                break;
             case constant:
-                return 0;
+                //For enter number.
+                MainActivity.ClickNumber(Integer.parseInt((String) args[0]));
+                break;
         }
-        return 0;
     }
 }
