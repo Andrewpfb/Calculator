@@ -79,7 +79,6 @@ public class Calculation
                 _result = 0;
                 break;
             case constant:
-                //For enter number.
                 try {
                     _method = _clazz.getMethod(_operationName, null); //Get operation by name.
                 } catch (NoSuchMethodException e) {
