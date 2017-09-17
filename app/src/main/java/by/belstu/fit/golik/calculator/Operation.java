@@ -6,7 +6,7 @@ package by.belstu.fit.golik.calculator;
 
 public class Operation
 {
-    //Binary
+    //Binary.
     static public double Plus(double operand1, double operand2) {
         return operand1+operand2;
     }
@@ -20,7 +20,7 @@ public class Operation
         return operand1/operand2;
     }
 
-    //Unary
+    //Unary.
     static public double Sin(double operand) {
         return Math.sin(operand);
     }
@@ -37,7 +37,7 @@ public class Operation
         return -operand;
     }
 
-    //Constant
+    //Constant.
     static public double One() {
         return 1;
     }
