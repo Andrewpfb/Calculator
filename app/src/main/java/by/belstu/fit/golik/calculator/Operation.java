@@ -83,6 +83,4 @@ public class Operation
     static public double E() {
         return Math.E;
     }
-
-    // Make dot.
 }
